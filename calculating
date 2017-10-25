@@ -1,0 +1,45 @@
+/*ekrana girilen 10 adet üç basamaklı rastgele sayılardan, rakamları toplamı
+çift olan en büyük sayıyı ekrana yazdıran program*/
+
+#include <stdio.h>  //standart giriş-çıkış fonksiyonlarını barındırır
+#include <time.h>  //zaman ile ilgili fonksiyonları barındırır
+
+
+int main(){  // ana fonksiyon
+	srand(time(NULL));  //eşsiz rastgele sayı üreteci
+	int rastgele[10];  //rastgele olan tamsayıların tutulduğu dizi
+	int sum[10];  //rastgele sayıların basamak değerlerinin tutulduğu dizi
+	
+	int i;  //rastgele sayıların üretildiği ve diziye atandığı döngü
+	for(i = 0; i < 10; i++){
+		rastgele[i] = 100 + rand() % 900;
+		printf("%d. random sayi : %d\n", i+1, rastgele[i]);
+	}
+	
+	printf("\n----------\n");  //işlemler arası karışıklık olmaması için boşluk
+	
+	for(i = 0; i < 10; i++){  //basamak değerlerinin hesaplandığı döngü
+		int temp = rastgele[i];
+		int value1 = temp % 10;  //birler basamagi
+		int value2 = ((temp - value1) % 100) / 10;  //onlar basamağı
+		int value3 = ((temp - value2 - value1) % 1000) / 100;  //binler basamağı
+		sum[i] = value1 + value2 + value3;  //basamak değerleri toplamı
+		printf("Basamaklarinin toplami degeri : %d\n", sum[i]);
+	}
+	
+	printf("\n----------\n");
+	
+	int max = 0;
+	
+	for(i = 0; i < 10; i++){
+		if(sum[i] % 2 == 0){ // basamakları toplamı çift olma durumu kontrolü
+			printf("Cift sayi : %d\n", sum[i]);
+			if(sum[i] > max){ // basamakları toplamı çift olan sayıların en büyüğünü bulma kontrolü
+				max = sum[i];
+			}
+		}
+	}
+	
+	printf("\n----------\n");
+	printf("En buyuk cift sayi : %d", max);
+} //ana fonskiyon sonu
